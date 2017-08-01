@@ -9,6 +9,7 @@
 import SceneKit
 import QuartzCore
 
+
 class GameViewController: NSViewController {
     
     @IBOutlet weak var gameView: GameView!
@@ -17,8 +18,8 @@ class GameViewController: NSViewController {
         super.awakeFromNib()
         
         // create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
+        let scene = SCNScene()
+
         // create and add a camera to the scene
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -27,30 +28,29 @@ class GameViewController: NSViewController {
         // place the camera
         cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
         
-        // create and add a light to the scene
-        let lightNode = SCNNode()
-        lightNode.light = SCNLight()
-        lightNode.light!.type = .omni
-        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
-        scene.rootNode.addChildNode(lightNode)
         
-        // create and add an ambient light to the scene
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = SCNLight()
-        ambientLightNode.light!.type = .ambient
-        ambientLightNode.light!.color = NSColor.darkGray
-        scene.rootNode.addChildNode(ambientLightNode)
-        
-        // retrieve the ship node
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        
-        // animate the 3d object
-        let animation = CABasicAnimation(keyPath: "rotation")
-        animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(0), y: CGFloat(1), z: CGFloat(0), w: CGFloat(Double.pi)*2))
-        animation.duration = 3
-        animation.repeatCount = MAXFLOAT //repeat forever
-        ship.addAnimation(animation, forKey: nil)
+        let depth_map_mesh = DepthMapMesh(  planeSize    : CGSize(width: 10, height: 10), 
+                                            gridDivisions: CGSize(width: 100, height: 100),
+                                            depthMap     : NSImage(named: "IMG_0915d.jpg"))
 
+        let mesh_geometry = depth_map_mesh.createGeometry()
+        
+        
+        
+        let material                        = SCNMaterial()
+        material.diffuse.contents           = NSImage(named: "IMG_0915.jpg")!
+        material.diffuse.wrapS              = SCNWrapMode.repeat
+        material.diffuse.wrapT              = SCNWrapMode.repeat
+        material.diffuse.contentsTransform  = SCNMatrix4Identity
+        material.isDoubleSided              = true
+        material.normal.wrapS               = SCNWrapMode.repeat
+        material.normal.wrapT               = SCNWrapMode.repeat
+        mesh_geometry.materials             = [material]
+        
+        
+        let mesh_node = SCNNode(geometry: mesh_geometry)
+        scene.rootNode.addChildNode( mesh_node )
+        
         // set the scene to the view
         self.gameView!.scene = scene
         
@@ -63,5 +63,4 @@ class GameViewController: NSViewController {
         // configure the view
         self.gameView!.backgroundColor = NSColor.black
     }
-
 }
