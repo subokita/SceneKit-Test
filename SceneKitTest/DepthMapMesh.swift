@@ -21,17 +21,14 @@ class DepthMapMesh {
     var segmentSize : CGSize
     
     fileprivate var maxGridSize     : (width: Int, height: Int)
-    fileprivate var depthMultiplier : CGFloat = 6.0
-    
     
     /**
      * @brief initialize the depth map mesh generator
      */
-    init(planeSize size: CGSize, gridDivisions segments: CGSize, depthMap depth_map: NSImage!, depthMultiplier multiplier: CGFloat = 6.0) {
+    init(planeSize size: CGSize, gridDivisions segments: CGSize, depthMap depth_map: NSImage! ) {
         self.size               = size
         self.segments           = segments
         self.depthMap           = depth_map
-        self.depthMultiplier    = multiplier
         
         self.segmentSize = CGSize( width : 2.0 * size.width / segments.width,
                                    height: 2.0 * size.height / segments.height )
@@ -98,7 +95,7 @@ class DepthMapMesh {
                 
                 let z_vert  = (image_rep.colorAt(x: Int(x_image), y: Int(y_image))?.cgColor.components![0])! as CGFloat
                 
-                vertices.append (SCNVector3Make( x_vert, -y_vert, (z_vert - 0.5) * depthMultiplier))
+                vertices.append (SCNVector3Make( x_vert, -y_vert, (z_vert - 0.5)))
                 uvs.append      (CGPoint( x: Double(x_index / segments.width),
                                           y: Double(y_index / segments.height)))
             }
@@ -151,12 +148,7 @@ class DepthMapMesh {
     func calculateNormals(_ faces: [Face]) -> [SCNVector3] {
         // FIXME: This doesn't seem to be correct
         // return faces.map{ $0.calculateNormal() }
-        var normals : [SCNVector3] = []
-        
-        for _ in 0..<faces.count {
-            normals.append( SCNVector3Make(0.0, 0.0, 1.0) )
-        }
-        return normals
+        return [SCNVector3]( repeating: SCNVector3Make(0.0, 0.0, 1.0), count: faces.count )
     }
     
     

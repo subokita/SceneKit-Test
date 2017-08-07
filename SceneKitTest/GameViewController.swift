@@ -35,18 +35,32 @@ class GameViewController: NSViewController {
 
         let mesh_geometry = depth_map_mesh.createGeometry()
         
+        let manager = MetalManager()
+        manager.setMetalShader(withName: "pixelate")
+        let pixellated = manager.apply(with: NSImage(named: "IMG_0915.jpg") )
         
         
         let material                        = SCNMaterial()
-        material.diffuse.contents           = NSImage(named: "IMG_0915.jpg")!
+        material.diffuse.contents           = pixellated
         material.diffuse.wrapS              = SCNWrapMode.repeat
         material.diffuse.wrapT              = SCNWrapMode.repeat
         material.diffuse.contentsTransform  = SCNMatrix4Identity
         material.isDoubleSided              = true
         material.normal.wrapS               = SCNWrapMode.repeat
         material.normal.wrapT               = SCNWrapMode.repeat
-        mesh_geometry.materials             = [material]
+        material.shaderModifiers = [
+            SCNShaderModifierEntryPoint.geometry :
+                """
+                uniform float depth_multiplier;
+                _geometry.position.z *= depth_multiplier;
+                """
+        ]
         
+        SCNTransaction.begin()
+        material.setValue(6.0, forKey: "depth_multiplier")
+        SCNTransaction.commit()
+        
+        mesh_geometry.materials = [material]
         
         let mesh_node = SCNNode(geometry: mesh_geometry)
         scene.rootNode.addChildNode( mesh_node )
