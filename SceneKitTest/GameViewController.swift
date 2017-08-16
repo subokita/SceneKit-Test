@@ -39,7 +39,6 @@ class GameViewController: NSViewController {
         manager.setMetalShader(withName: "pixelate")
         let pixellated = manager.apply(with: NSImage(named: "IMG_0915.jpg") )
         
-        
         let material                        = SCNMaterial()
         material.diffuse.contents           = pixellated
         material.diffuse.wrapS              = SCNWrapMode.repeat

@@ -11,6 +11,7 @@
 		A83F3D831F30457C005D03C5 /* DepthMapMesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F3D821F30457C005D03C5 /* DepthMapMesh.swift */; };
 		A83F3D851F305175005D03C5 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F3D841F305175005D03C5 /* SCNVector3+Extensions.swift */; };
 		A83F3D871F306037005D03C5 /* Face.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83F3D861F306037005D03C5 /* Face.swift */; };
+		A84A7D9B1F3B589200DC62F9 /* MetalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84A7D981F3B589100DC62F9 /* MetalManager.swift */; };
 		A86FB8541F2F56CF00A653E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86FB8531F2F56CF00A653E7 /* AppDelegate.swift */; };
 		A86FB8561F2F56CF00A653E7 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86FB8551F2F56CF00A653E7 /* GameView.swift */; };
 		A86FB8581F2F56CF00A653E7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86FB8571F2F56CF00A653E7 /* GameViewController.swift */; };
@@ -50,6 +51,7 @@
 		A83F3D821F30457C005D03C5 /* DepthMapMesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthMapMesh.swift; sourceTree = "<group>"; };
 		A83F3D841F305175005D03C5 /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		A83F3D861F306037005D03C5 /* Face.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Face.swift; sourceTree = "<group>"; };
+		A84A7D981F3B589100DC62F9 /* MetalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalManager.swift; sourceTree = "<group>"; };
 		A86FB8501F2F56CF00A653E7 /* SceneKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A86FB8531F2F56CF00A653E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A86FB8551F2F56CF00A653E7 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				A86FB85D1F2F56CF00A653E7 /* MainMenu.xib */,
 				A86FB8601F2F56CF00A653E7 /* Info.plist */,
 				A83F3D821F30457C005D03C5 /* DepthMapMesh.swift */,
+				A84A7D981F3B589100DC62F9 /* MetalManager.swift */,
 				A83F3D841F305175005D03C5 /* SCNVector3+Extensions.swift */,
 				A83F3D861F306037005D03C5 /* Face.swift */,
 				A81813251F34700500FCBF98 /* MetalManager.swift */,
@@ -318,6 +321,7 @@
 				A83F3D871F306037005D03C5 /* Face.swift in Sources */,
 				A8AEEB491F347E2800FA2267 /* KernelFunctions.metal in Sources */,
 				A8AEEB721F350BAC00FA2267 /* NSImage+Extension.swift in Sources */,
+				A84A7D9B1F3B589200DC62F9 /* MetalManager.swift in Sources */,
 				A8AEEB701F34D16700FA2267 /* MTLTexture+Extensions.swift in Sources */,
 				A83F3D851F305175005D03C5 /* SCNVector3+Extensions.swift in Sources */,
 				A86FB8561F2F56CF00A653E7 /* GameView.swift in Sources */,
@@ -470,6 +474,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SceneKitTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = sub.SceneKitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -483,6 +488,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SceneKitTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = sub.SceneKitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

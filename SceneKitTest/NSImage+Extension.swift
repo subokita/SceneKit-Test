@@ -12,13 +12,10 @@ import Metal
 import MetalKit
 
 extension NSImage {
-    
     func toMTLTexture(_ metal_device: MTLDevice!) -> MTLTexture {
         guard let cg_image = self.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
             fatalError( "Unable to open cgImage" )
         }
-        
-        
         
         let texture_loader = MTKTextureLoader(device: metal_device )
         do {

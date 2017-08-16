@@ -10,6 +10,7 @@ import Foundation
 import Accelerate
 import Metal
 import MetalKit
+import MetalPerformanceShaders
 
 /**
  * @brief   handles the setup of Metal Compute.
@@ -54,25 +55,25 @@ class MetalManager {
      */
     func apply(with image: NSImage!, andPixelSize pixel_size: [UInt32]! = [16, 16] ) -> NSImage! {
         let in_texture = image.toMTLTexture(self.device)
-        
+
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat   : MTLPixelFormat.bgra8Unorm,
                                                                   width         : in_texture.width,
                                                                   height        : in_texture.height,
                                                                   mipmapped     : false)
 
         descriptor.usage = MTLTextureUsage.shaderWrite
-        
+
         let out_texture = self.device.makeTexture(descriptor: descriptor)
-        
+
         computeCommandEncoder.setTexture(in_texture,  at: 0)
         computeCommandEncoder.setTexture(out_texture, at: 1)
-        
+
         let buffer = device.makeBuffer(bytes    : pixel_size,
                                        length   : MemoryLayout<UInt32>.size * pixel_size.count,
                                        options  : MTLResourceOptions.storageModeShared)
-        
+
         computeCommandEncoder.setBuffer(buffer, offset: 0, at: 0)
-        
+
         let thread_groups = MTLSizeMake( in_texture.width / threadGroupCount.width, in_texture.height / threadGroupCount.height, 1)
         computeCommandEncoder.dispatchThreadgroups(thread_groups, threadsPerThreadgroup: threadGroupCount)
         computeCommandEncoder.endEncoding()
